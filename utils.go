@@ -1,9 +1,10 @@
 package hassky
 
 import (
-	"fmt"
 	"reflect"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // isNilFixed is a function
@@ -21,5 +22,5 @@ func isNil(i interface{}) bool {
 // timeTrack is a function
 func timeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
-	fmt.Printf("%s took %s\n", name, elapsed)
+	log.Infof("%s took %s\n", name, elapsed)
 }
