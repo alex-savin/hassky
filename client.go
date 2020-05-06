@@ -2,12 +2,12 @@ package hassky
 
 import (
 	"errors"
-	"log"
 	"time"
 
 	"github.com/Jeffail/gabs/v2"
 	"github.com/go-resty/resty/v2"
 	"github.com/gorilla/websocket"
+	log "github.com/sirupsen/logrus"
 )
 
 var requestID int = 0

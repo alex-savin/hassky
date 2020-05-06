@@ -3,13 +3,14 @@ package hassky
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"regexp"
 	"strings"
 
 	"github.com/Jeffail/gabs/v2"
+	log "github.com/sirupsen/logrus"
 )
 
+// Response is a struct
 type Response struct {
 	OK          bool
 	Error       string
@@ -17,6 +18,7 @@ type Response struct {
 	ResponseRaw []byte
 }
 
+// ResponseWS is a struct
 type ResponseWS struct {
 	ID      int             `json:"id"`
 	Type    string          `json:"type"`
@@ -28,6 +30,7 @@ type ResponseWS struct {
 	} `json:"error,omitempty"`
 }
 
+// Parse method which parsing output of executed commands
 func (res *Response) Parse(req *Request, resp []byte) *Response {
 	switch req.method {
 	case "websocket":

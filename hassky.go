@@ -1,16 +1,29 @@
 package hassky
 
 import (
-	"log"
 	"net/url"
+	"os"
 
 	"github.com/Jeffail/gabs/v2"
 	"github.com/go-resty/resty/v2"
 	"github.com/gorilla/websocket"
+	log "github.com/sirupsen/logrus"
 )
 
 // Version is constant for the package
 const Version = "0.0.1-dev"
+
+func init() {
+	// Log as JSON instead of the default ASCII formatter.
+	log.SetFormatter(&log.JSONFormatter{})
+
+	// Output to stdout instead of the default stderr
+	// Can be any io.Writer, see below for File example
+	log.SetOutput(os.Stdout)
+
+	// Only log the warning severity or above.
+	log.SetLevel(log.WarnLevel)
+}
 
 // New function creates a New Hassky client
 func New(host string, authToken string, useSSL bool) (*Client, error) {
