@@ -41,7 +41,7 @@ func (c *Client) execute(req *Request) (string, bool, error) {
 
 		err := c.wsClient.WriteJSON(req.body)
 		if err != nil {
-			log.Fatal("ERROR >> %s\n", err)
+			log.Fatalf("ERROR >> %s\n", err)
 		}
 
 		_, message, _ := c.wsClient.ReadMessage()
@@ -56,21 +56,21 @@ func (c *Client) execute(req *Request) (string, bool, error) {
 		if isNil(req.body) {
 			resp, err := c.httpClient.R().Post(req.urlPath)
 			if err != nil {
-				log.Fatal("ERROR >> %s", err)
+				log.Fatalf("ERROR >> %s", err)
 			}
 
 			if resp.StatusCode() != 200 && resp.StatusCode() != 201 {
-				log.Fatal("PARSE ERROR HERE >> %s", err)
+				log.Fatalf("PARSE ERROR HERE >> %s", err)
 			}
 			res.OK = true
 			res.Parse(req, resp.Body())
 		} else {
 			resp, err := c.httpClient.R().SetBody(req.body).Post(req.urlPath)
 			if err != nil {
-				log.Fatal("ERROR >> %s", err)
+				log.Fatalf("ERROR >> %s", err)
 			}
 			if resp.StatusCode() != 200 && resp.StatusCode() != 201 {
-				log.Fatal("PARSE ERROR HERE >> %s", err)
+				log.Fatalf("PARSE ERROR HERE >> %s", err)
 			}
 			res.OK = true
 			res.Parse(req, resp.Body())
@@ -80,10 +80,10 @@ func (c *Client) execute(req *Request) (string, bool, error) {
 	case "get":
 		resp, err := c.httpClient.R().Get(req.urlPath)
 		if err != nil {
-			log.Fatal("ERROR >> %s", err)
+			log.Fatalf("ERROR >> %s", err)
 		}
 		if resp.StatusCode() != 200 {
-			log.Fatal("PARSE ERROR HERE >> %s", err)
+			log.Fatalf("PARSE ERROR HERE >> %s", err)
 		}
 		res.OK = true
 		res.Parse(req, resp.Body())

@@ -71,11 +71,11 @@ func (res *Response) Parse(req *Request, resp []byte) *Response {
 		switch strings.Split(req.urlPath, "/")[2] {
 		case "states":
 			if matched, _ := regexp.MatchString(`^(\w+)[\.]{1}(\w+)$`, strings.Split(req.urlPath, "/")[strings.Count(req.urlPath, "/")]); matched == true {
-				fmt.Println("POST >> ENTITY ID IS DETECTED")
+				log.Info("POST >> ENTITY ID IS DETECTED")
 			}
 		case "events":
 			if matched, _ := regexp.MatchString(`^Event\s(\w+)\sfired.$`, strings.Split(req.urlPath, "/")[strings.Count(req.urlPath, "/")]); matched == true {
-				fmt.Println("POST >> EVENT WAS SUCESSFULLY FIRED")
+				log.Info("POST >> EVENT WAS SUCESSFULLY FIRED")
 			}
 		case "services":
 			fmt.Println(res.Response)
@@ -84,7 +84,7 @@ func (res *Response) Parse(req *Request, resp []byte) *Response {
 			}
 		case "config":
 			if value, ok := res.Response.Path("result").Data().(string); ok == true && value == "valid" {
-				fmt.Println("POST >> TRUE")
+				log.Info("POST >> TRUE")
 				res.OK = true
 			} else {
 				res.OK = false
@@ -109,7 +109,7 @@ func (res *Response) Parse(req *Request, resp []byte) *Response {
 		case "error_log":
 		case "states":
 			if matched, _ := regexp.MatchString(`^(\w+)[\.]{1}(\w+)$`, strings.Split(req.urlPath, "/")[strings.Count(req.urlPath, "/")]); matched == true {
-				fmt.Println("GET >> ENTITY ID IS DETECTED")
+				log.Info("GET >> ENTITY ID IS DETECTED")
 			}
 		case "camera_proxy":
 		case "history":

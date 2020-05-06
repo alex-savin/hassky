@@ -45,7 +45,7 @@ func New(host string, authToken string, useSSL bool) (*Client, error) {
 
 	wsClient, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
-		log.Fatal("dial:", err)
+		log.Fatalf("WSCLIENT ERROR >> %s", err)
 		return nil, err
 	}
 	//	defer wsClient.Close()
@@ -56,13 +56,12 @@ func New(host string, authToken string, useSSL bool) (*Client, error) {
 	authMessage.Set("auth", "type")
 	authMessage.Set(authToken, "access_token")
 
-	connectionErr := wsClient.WriteJSON(authMessage)
-	if connectionErr != nil {
-		log.Fatal("write:", connectionErr)
+	err = wsClient.WriteJSON(authMessage)
+	if err != nil {
+		log.Fatalf("WSCLIENT ERROR >> %s", err)
 	}
 
 	_, _, _ = wsClient.ReadMessage()
-	// fmt.Printf("Auth Phase #2 >> %+v\n", string(message))
 
 	client := &Client{
 		wsClient:   wsClient,
