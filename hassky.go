@@ -11,7 +11,7 @@ import (
 )
 
 // Version is constant for the package
-const Version = "0.0.1-dev"
+const Version = "0.1.0-dev"
 
 func init() {
 	// Log as JSON instead of the default ASCII formatter.
@@ -20,13 +20,24 @@ func init() {
 	// Output to stdout instead of the default stderr
 	// Can be any io.Writer, see below for File example
 	log.SetOutput(os.Stdout)
-
-	// Only log the warning severity or above.
-	log.SetLevel(log.WarnLevel)
 }
 
 // New function creates a New Hassky client
-func New(host string, authToken string, useSSL bool) (*Client, error) {
+func New(host string, authToken string, useSSL bool, logLevel string) (*Client, error) {
+
+	switch logLevel {
+	case "debug":
+		log.SetLevel(log.DebugLevel)
+	case "info":
+		log.SetLevel(log.InfoLevel)
+	case "warn":
+		log.SetLevel(log.WarnLevel)
+	case "error":
+		log.SetLevel(log.ErrorLevel)
+	default:
+		log.SetLevel(log.InfoLevel)
+		log.Warnf("[HASSKY] Invalid log level supplied: '%s'", logLevel)
+	}
 
 	wsScheme := "ws"
 	httpScheme := "http"

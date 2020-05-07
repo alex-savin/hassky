@@ -23,7 +23,7 @@ import "github.com/alex-savin/hassky"
 #### Simple PING request
 ```go
 // Create a Hassky Client
-h, _ := hassky.New("[HASS-IP-ADDESS]:[PORT]", "[HASS-API-TOKEN]", false)
+h, _ := hassky.New("[HASS-IP-ADDESS]:[PORT]", "[HASS-API-TOKEN]", "[USE-SSL]", "[LOG-LEVEL]")
 
 h.R().Ping().
       Exec()
