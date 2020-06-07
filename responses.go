@@ -37,7 +37,7 @@ func (res *Response) Parse(req *Request, resp []byte) *Response {
 		response := &ResponseWS{}
 		_ = json.Unmarshal(resp, response)
 
-		log.Debug("WS >> %#v", &response.Result)
+		log.Debugf("WS >> %#v", &response.Result)
 
 		switch response.Type {
 		case "result":
