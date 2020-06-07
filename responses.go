@@ -37,6 +37,8 @@ func (res *Response) Parse(req *Request, resp []byte) *Response {
 		response := &ResponseWS{}
 		_ = json.Unmarshal(resp, response)
 
+		log.Debug("WS >> %#v", &response.Result)
+
 		switch response.Type {
 		case "result":
 			res.Response, _ = gabs.ParseJSON(response.Result)
